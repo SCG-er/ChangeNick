@@ -1,0 +1,6 @@
+---
+## Default Message to ChangeNick
+## Example:
+## changenick.message: §aYour name changed to (not use system from nick message)
+changenick.message: §bVocê alterou seu nick para §a
+...
