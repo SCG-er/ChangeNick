@@ -9,6 +9,7 @@ author: Redstonealmeida
 commands:
     setplayernick:
         description: setplayernick
+        aliases: [fake,nick,admnick]
         use: "/setplayernick"
         permission: setplayernick.command
 
