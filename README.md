@@ -13,3 +13,4 @@ ChangeNick plugin to PocketMine-MP
 ##To-Do
 - Edit command /setplayernick to your command in config
 - Edit displaynickname other players
+- Set DisplayName in Config.
