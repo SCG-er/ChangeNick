@@ -7,14 +7,22 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\player\PlayerChatEvent;
+use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerPreLoginEvent;
+
+use pocketmine\event\Listener;
 
 use pocketmine\utils\Config;
 
 use pocketmine\utils\TextFormat as Color;
 
-class nameSet extends PluginBase{
+class nameSet extends PluginBase implements Listener{
     
     public function onEnable(){
+        
+        @mkdir($this->getDataFolder());
+        @mkdir($this->getDataFolder() . "languages/");
+        $this->getServer()->getPluginManager()->registerEvents($this, $this);
         
         $this->saveDefaultConfig();
         
@@ -27,11 +35,10 @@ class nameSet extends PluginBase{
         
         $lang = $this->config->get("lang.set");
         
-        $this->langconfig = new Config($this->getDataFolder() . $lang.".yml" , Config::YAML, Array(
+        
+        $this->langconfig = new Config($this->getDataFolder() . "languages/" . $lang.".yml" , Config::YAML, Array(
         "changenick.message" => "§bVocê alterou seu nick para §a",
         ));
-        $this->saveResource($lang.".yml");
-        $this->saveConfig("langconfig");
         
         $this->getLogger()->info("SetName plugin!");
         
@@ -45,9 +52,29 @@ class nameSet extends PluginBase{
                       $sender->setDisplayName($args[0]);
                       $sender->sendMessage($changeNickMessage."".$args[0]);
                     }
+        
+                              
+                    }
                     
                 }
                      
+        
+        
+        public function PlayerJoinEvent(PlayerJoinEvent $event){
+            
+            @mkdir($this->getDataFolder());
+            @mkdir($this->getDataFolder() . "players/");
+            
+            $player = $event->getPlayer()->getName();
+            $players = $this->getDataFolder() . "players/";
+            
+            $this->players = new Config($players . $player.".yml" , Config::YAML, Array(
+            "Nick" => $player,
+            ));
+            
+            
+            $this->reloadConfig();
+        
         }
     }
     
