@@ -1,4 +1,4 @@
-name: setNamePlugin
+name: SCGNamePlugin
 main: nameSet\nameSet
 version: 0.1
 api:
